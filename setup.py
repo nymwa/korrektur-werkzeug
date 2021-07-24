@@ -20,6 +20,9 @@ setuptools.setup(
                 'sent-stat = werkzeug.statistik.sent:main',
                 'compare-vocab = werkzeug.check_fairseq_vocab:main',
                 '2yaml = werkzeug.generate.conv_to_yaml:main',
+                'yaml2tsv = werkzeug.generate.yaml_to_tsv:main',
+                'r2l2tsv = werkzeug.generate.r2l_to_tsv:main',
+                'merge-r2l = werkzeug.generate.merge_r2l:main',
                 'select-best = werkzeug.generate.select_best:main',
                 'fm-grundkiewicz-filter = werkzeug.preproc.grundkiewicz_filter:main',
                 ]},)

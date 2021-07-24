@@ -13,51 +13,42 @@ def sent_to_dict(key, value):
 
 class Data:
     def __init__(self):
-        self.dct = defaultdict(list)
+        self.dct = defaultdict(dict)
 
-    def add(self, sent):
-        self.dct[sent.index].append(sent)
+    def add_source(self, index, text):
+        self.dct[index]['index'] = index
+        self.dct[index]['source'] = text
+
+    def add_hypothesis(self, index, score, text):
+        if 'hypos' not in self.dct[index]:
+            self.dct[index]['hypos'] = []
+        self.dct[index]['hypos'].append(
+                {'score': score, 'text': text})
 
     def as_list(self):
-        data = list(self.dct.items())
-        data.sort()
-        data = [sent_to_dict(key, value) for key, value in data]
-        return data
-
-
-class Sentence:
-    def __init__(self, index, score, text):
-        self.index = index
-        self.score = score
-        self.text = text
-
-    def __lt__(self, other):
-        return self.score < other.score
-
-    def as_dict(self):
-        return {'score': self.score, 'text': self.text}
-
-
-def load_fairseq_generate_output():
-    for x in sys.stdin:
-        if x.startswith('H'):
-            x = x.split('\t')
-            index = int(x[0].split('-')[1])
-            score = float(x[1])
-            text = x[2].strip()
-            yield Sentence(index, score, text)
-
-
-def make_data(sent_list):
-    data = Data()
-    for sent in sent_list:
-        data.add(sent)
-    return data
+        lst = []
+        for key, value in self.dct.items():
+            lst.append(value)
+        lst.sort(key = lambda x: x['index'])
+        return lst
 
 
 def main():
-    sent_list = load_fairseq_generate_output()
-    data = make_data(sent_list)
+    data = Data()
+
+    for x in sys.stdin:
+        if x.startswith('S'):
+            x = x.rstrip('\n').split('\t')
+            index = int(x[0].split('-')[1])
+            text = x[1]
+            data.add_source(index, text)
+        elif x.startswith('H'):
+            x = x.rstrip('\n').split('\t')
+            index = int(x[0].split('-')[1])
+            score = float(x[1])
+            text = x[2]
+            data.add_hypothesis(index, score, text)
+
     data = data.as_list()
     yml = yaml.safe_dump(data, allow_unicode = True)
     print(yml)

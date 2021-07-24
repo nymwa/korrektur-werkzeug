@@ -22,8 +22,13 @@ def remove_bpe(x):
     return x
 
 
-def sort_by_score(lst):
-    lst.sort(key=lambda x : x['score'])
+def sort_by_score(args, lst):
+    if args.r2l:
+        key = lambda x : x['score'] + x['r2l_score']
+    else:
+        key = lambda x : x['score']
+
+    lst.sort(key = key)
 
 
 def print_best(args, lst):
@@ -49,6 +54,7 @@ def parse_args():
     parser = ArgumentParser()
     parser.add_argument('-s', '--show-score', action = 'store_true')
     parser.add_argument('-r', '--reverse', action = 'store_true')
+    parser.add_argument('--r2l', action = 'store_true')
     parser.add_argument('--retain-whitespace', action = 'store_true')
     parser.add_argument('--retain-normalized', action = 'store_true')
     return parser.parse_args()
@@ -61,6 +67,6 @@ def main():
 
     for hypos_dict in yml:
         hypos = hypos_dict['hypos']
-        sort_by_score(hypos)
+        sort_by_score(args, hypos)
         print_best(args, hypos)
 
