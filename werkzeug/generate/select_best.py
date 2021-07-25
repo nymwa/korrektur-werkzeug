@@ -23,8 +23,12 @@ def remove_bpe(x):
 
 
 def sort_by_score(args, lst):
-    if args.r2l:
-        key = lambda x : x['score'] + x['r2l_score']
+    if args.r2l and args.mlm:
+        key = lambda x : (x['score'] + x['r2l_score']) / 2 + args.lambda * x['mlm_score']
+    elif args.mlm:
+        key = lambda x : x['score'] + args.lambda * x['mlm_score']
+    elif args.r2l:
+        key = lambda x : (x['score'] + x['r2l_score']) / 2
     else:
         key = lambda x : x['score']
 
@@ -54,7 +58,9 @@ def parse_args():
     parser = ArgumentParser()
     parser.add_argument('-s', '--show-score', action = 'store_true')
     parser.add_argument('-r', '--reverse', action = 'store_true')
+    parser.add_argument('-l', '--lambda', type = float, default = None)
     parser.add_argument('--r2l', action = 'store_true')
+    parser.add_argument('--mlm', action = 'store_true')
     parser.add_argument('--retain-whitespace', action = 'store_true')
     parser.add_argument('--retain-normalized', action = 'store_true')
     return parser.parse_args()

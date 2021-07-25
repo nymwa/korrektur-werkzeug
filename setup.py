@@ -25,5 +25,6 @@ setuptools.setup(
                 'merge-r2l = werkzeug.generate.merge_r2l:main',
                 'select-best = werkzeug.generate.select_best:main',
                 'fm-grundkiewicz-filter = werkzeug.preproc.grundkiewicz_filter:main',
+                'mlm-scoring = werkzeug.mlm.mlm_scoring:main',
                 ]},)
 
