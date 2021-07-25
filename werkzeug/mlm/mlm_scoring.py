@@ -23,7 +23,7 @@ def parse_args():
     parser.add_argument('--lang', default = 'de')
     parser.add_argument('--arch', default = 'bert-base-german-cased')
     parser.add_argument('--detokenize', action = 'store_true')
-    parser.add_argument('--max-tokens', type = int, default = 4000)
+    parser.add_argument('--max-tokens', type = int, default = 10000)
     return parser.parse_args()
 
 
