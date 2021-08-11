@@ -16,6 +16,8 @@ setuptools.setup(
                 'superspecimeni = werkzeug.preproc.superspecimeni:main',
                 'tondi = werkzeug.preproc.tondi:main',
                 'renversi = werkzeug.preproc.renversi:main',
+                'en-tokenize = werkzeug.preproc.tokenize:en',
+                'de-tokenize = werkzeug.preproc.tokenize:de',
                 'char-stat = werkzeug.statistik.char:main',
                 'sent-stat = werkzeug.statistik.sent:main',
                 'compare-vocab = werkzeug.check_fairseq_vocab:main',
@@ -26,5 +28,8 @@ setuptools.setup(
                 'select-best = werkzeug.generate.select_best:main',
                 'fm-grundkiewicz-filter = werkzeug.preproc.grundkiewicz_filter:main',
                 'mlm-scoring = werkzeug.mlm.mlm_scoring:main',
+                'gec-tag = werkzeug.entag:gec',
+                'd2e-tag = werkzeug.entag:d2e',
+                'e2d-tag = werkzeug.entag:e2d',
                 ]},)
 
