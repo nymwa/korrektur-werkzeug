@@ -11,6 +11,14 @@ def gec():
     run('<gec>')
 
 
+def de_gec():
+    run('<de>')
+
+
+def en_gec():
+    run('<en>')
+
+
 def d2e():
     run('<d2e>')
 

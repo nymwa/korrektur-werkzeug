@@ -29,7 +29,11 @@ setuptools.setup(
                 'fm-grundkiewicz-filter = werkzeug.preproc.grundkiewicz_filter:main',
                 'mlm-scoring = werkzeug.mlm.mlm_scoring:main',
                 'gec-tag = werkzeug.entag:gec',
+                'de-gec-tag = werkzeug.entag:de_gec',
+                'en-gec-tag = werkzeug.entag:en_gec',
                 'd2e-tag = werkzeug.entag:d2e',
                 'e2d-tag = werkzeug.entag:e2d',
+                'm22src = werkzeug.m2.m22src:m2_to_src',
+                'm22trg = werkzeug.m2.m22trg:m2_to_trg',
                 ]},)
 
